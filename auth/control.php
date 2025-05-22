@@ -263,4 +263,15 @@ if (!empty($subjects)) {
         'usersAccountID' => $usersAccountID
     ];
 }
+function getDepartment(){
+    $pdo = db_connect();
+    $query = "SELECT * FROM department;";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $department = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+
+    return [
+        'department' => $department
+    ];
+}
 

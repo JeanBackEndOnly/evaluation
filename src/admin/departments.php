@@ -1,12 +1,14 @@
-<?php include_once '../../auth/control.php'; $info = getUsersInfo();
+<?php include_once '../../auth/control.php';
+    $info = getUsersInfo();
     $admin_info = $info['admin_info'];
-    $department = $info['department'];
+    $defInfo = getDepartment();
+    $department = $defInfo['department'];
     ?>
 
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
