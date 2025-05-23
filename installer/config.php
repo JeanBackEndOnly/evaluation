@@ -26,23 +26,23 @@ function db_connect()
                 created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );",
 
-            "CREATE TABLE IF NOT EXISTS admin (
-                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                firstname VARCHAR(50) NOT NULL,
-                middlename VARCHAR(50) NOT NULL,
-                lastname VARCHAR(50) NOT NULL,
-                email VARCHAR(100) NOT NULL,
-                username VARCHAR(50) NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                user_role VARCHAR(20) NOT NULL,
-                created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            );",
+            // "CREATE TABLE IF NOT EXISTS admin (
+            //     id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            //     firstname VARCHAR(50) NOT NULL,
+            //     middlename VARCHAR(50) NOT NULL,
+            //     lastname VARCHAR(50) NOT NULL,
+            //     email VARCHAR(100) NOT NULL,
+            //     username VARCHAR(50) NOT NULL,
+            //     password VARCHAR(255) NOT NULL,
+            //     user_role VARCHAR(20) NOT NULL,
+            //     created_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            // );",
 
-            "CREATE TABLE IF NOT EXISTS options (
-                id INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                meta_key LONGTEXT NOT NULL,
-                meta_value LONGTEXT NULL
-            );",
+            // "CREATE TABLE IF NOT EXISTS options (
+            //     id INT(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            //     meta_key LONGTEXT NOT NULL,
+            //     meta_value LONGTEXT NULL
+            // );",
 
             "CREATE TABLE IF NOT EXISTS department (
                     id INT AUTO_INCREMENT PRIMARY KEY,
