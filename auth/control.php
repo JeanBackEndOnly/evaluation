@@ -80,10 +80,18 @@ $query = "
         department.department_name
 ";
 
-$stmt = $pdo->prepare($query);
-$stmt->execute();
-$professors = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $pdo->prepare($query);
+    $stmt->execute();
+    $professors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    $query = "SELECT * FROM users
+    INNER JOIN students ON users.id = students.user_id
+    INNER JOIN department ON students.department_id = department.id
+    WHERE users.id = :id;";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['id' => $users_id]);
+    $getDepartment = $stmt->fetch(PDO::FETCH_ASSOC);
+    $department_name = $getDepartment["department_name"];
 
 $query = "
     SELECT 
@@ -94,16 +102,23 @@ $query = "
         p.email,
         p.profession,
         d.department_name
-    FROM professor_school_year_semester psys
-    JOIN professor p ON psys.professor_id = p.id
-    LEFT JOIN department d ON p.department_id = d.id
-    INNER JOIN school_year_semester sy ON psys.school_year_semester_id = sy.id
-    WHERE psys.school_year_semester_id = :sysem_id AND sy.status = 'open';
+        FROM professor_school_year_semester psys
+        JOIN professor p ON psys.professor_id = p.id
+        LEFT JOIN department d ON p.department_id = d.id
+        INNER JOIN school_year_semester sy ON psys.school_year_semester_id = sy.id
+        WHERE psys.school_year_semester_id = :sysem_id
+        AND sy.status = 'open'
+        AND d.department_name = :department_name;
 ";
 
 $stmt = $pdo->prepare($query);
-$stmt->execute(['sysem_id' => $users_id]);
+$stmt->execute([
+    'sysem_id' => $users_id,
+    'department_name' => $department_name
+]);
+
 $professorInDept = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 
 

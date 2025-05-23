@@ -3,47 +3,47 @@ include "../installer/config.php";
 // include 'control.php';
 
 
-function initInstaller() {
-    $pdo = db_connect(); 
+// function initInstaller() {
+//     $pdo = db_connect(); 
 
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM admin WHERE user_role = :user_role");
-        $stmt->execute(['user_role' => 'administrator']);
-        $admins = $stmt->fetchAll();
+//     try {
+//         $stmt = $pdo->prepare("SELECT * FROM admin WHERE user_role = :user_role");
+//         $stmt->execute(['user_role' => 'administrator']);
+//         $admins = $stmt->fetchAll();
 
-        $currentUrl = $_SERVER['REQUEST_URI'];
-        $installerPath = "/zppsuFacultyEvaluation/installer/";
+//         $currentUrl = $_SERVER['REQUEST_URI'];
+//         $installerPath = "/zppsuFacultyEvaluation/installer/";
 
-        if (count($admins) === 0) {
-            if ($currentUrl !== $installerPath) {
-                header("Location: " . base_url() . "installer/");
-                exit;
-            }
-        } else {
-            if ($currentUrl === $installerPath) {
-                header("Location: " . base_url()."SRC/");
-                exit;
-            }
-        }
+//         if (count($admins) === 0) {
+//             if ($currentUrl !== $installerPath) {
+//                 header("Location: " . base_url() . "installer/");
+//                 exit;
+//             }
+//         } else {
+//             if ($currentUrl === $installerPath) {
+//                 header("Location: " . base_url()."SRC/");
+//                 exit;
+//             }
+//         }
 
-    } catch (PDOException $e) {
-        die("Installer check failed: " . $e->getMessage());
-    }
+//     } catch (PDOException $e) {
+//         die("Installer check failed: " . $e->getMessage());
+//     }
 
-    $pdo = null;
-}
+//     $pdo = null;
+// }
 
-function base_url() {
-    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+// function base_url() {
+//     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
     
-    $server_name = $_SERVER['SERVER_NAME']; 
+//     $server_name = $_SERVER['SERVER_NAME']; 
     
-    if (in_array($server_name, ['127.0.0.1', '::1', 'localhost'])) {
-        return $protocol . '://' . $server_name . '/zppsuFacultyEvaluation/'; 
-    }
+//     if (in_array($server_name, ['127.0.0.1', '::1', 'localhost'])) {
+//         return $protocol . '://' . $server_name . '/zppsuFacultyEvaluation/'; 
+//     }
     
-    return $protocol . '://' . $server_name . '/'; 
-}
+//     return $protocol . '://' . $server_name . '/'; 
+// }
 // function base_url() {
 //     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
 //     $server_name = $_SERVER['SERVER_NAME'];
