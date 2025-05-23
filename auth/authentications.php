@@ -28,7 +28,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $errors = [];
 
-    // Input validations
     if (invalid_email($email)) {
         $errors['invalid_email'] = "Invalid email address.";
     }
@@ -53,7 +52,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $errors['password_security'] = "Password must contain uppercase letters, numbers, and special characters.";
     }
 
-   // $year_level and $section are separate from $_POST already
 if (empty($year_level) || empty($section)) {
     $errors['invalid_year_section'] = "Year Level and Section must be selected.";
     $_SESSION['signup_errors'] = $errors;

@@ -1,5 +1,6 @@
 <?php include '../auth/functions.php'; require_once '../installer/session.php';  require_once '../auth/view.php';  ?>
-<?php initInstaller();
+<?php 
+// initInstaller();
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +18,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
-        // var base_url = '<?php 
-        // echo base_url(); 
+        var base_url = '<?php
+            echo base_url();
         ?>';
-        // console.log('Base URL: ' + base_url);
-    var base_url = '<?php echo base_url(); ?>';
-    console.log('Base URL: ' + base_url); // should show http://192.168.1.21/evaluation/ if accessed via that IP
-
     </script>
 
 

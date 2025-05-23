@@ -33,17 +33,17 @@ include "../installer/config.php";
 //     $pdo = null;
 // }
 
-// function base_url() {
-//     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
+function base_url() {
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
     
-//     $server_name = $_SERVER['SERVER_NAME']; 
+    $server_name = $_SERVER['SERVER_NAME']; 
     
-//     if (in_array($server_name, ['127.0.0.1', '::1', 'localhost'])) {
-//         return $protocol . '://' . $server_name . '/zppsuFacultyEvaluation/'; 
-//     }
+    // if (in_array($server_name, ['127.0.0.1', '::1', 'localhost'])) {
+    //     return $protocol . '://' . $server_name . '/zppsuFacultyEvaluation/'; 
+    // }
     
-//     return $protocol . '://' . $server_name . '/'; 
-// }
+    return $protocol . '://' . $server_name . '/'; 
+}
 // function base_url() {
 //     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http';
 //     $server_name = $_SERVER['SERVER_NAME'];
