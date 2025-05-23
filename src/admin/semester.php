@@ -98,6 +98,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">School Year</th>
                                 <th scope="col">Semester</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -107,6 +108,7 @@
                                     <td><?= htmlspecialchars($row["id"]) ?></td>
                                     <td><?= htmlspecialchars($row["school_year"]) ?></td>
                                     <td><?= htmlspecialchars($row["semester"]) ?></td>
+                                    <td><?= htmlspecialchars($row["status"]) ?></td>
                                     <td>
                                         <button class="btn btn-warning btn-sm" onclick="openSemesterModal(<?= $row['id'] ?>)">
                                             <i class="fa-solid fa-unlock"></i>

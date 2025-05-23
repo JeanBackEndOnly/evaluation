@@ -12,7 +12,7 @@ function initInstaller() {
         $admins = $stmt->fetchAll();
 
         $currentUrl = $_SERVER['REQUEST_URI'];
-        $installerPath = "/zppsuFacultyEvaluation/installer/";
+        $installerPath = "/github/evaluation/installer/";
 
         if (count($admins) === 0) {
             if ($currentUrl !== $installerPath) {
@@ -39,7 +39,7 @@ function base_url() {
     $server_name = $_SERVER['SERVER_NAME']; 
     
     if (in_array($server_name, ['127.0.0.1', '::1', 'localhost'])) {
-        return $protocol . '://' . $server_name . '/zppsuFacultyEvaluation/'; 
+        return $protocol . '://' . $server_name . '/github/evaluation/'; 
     }
     
     return $protocol . '://' . $server_name . '/'; 

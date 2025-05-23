@@ -15,13 +15,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // =============================== REGISTER ===================================== //
     
   if (isset($_POST["addeemployee"]) && $_POST["addeemployee"] === "admin") {
-    // $fname = trim($_POST['fname'] ?? '');
-    // $mname = trim($_POST['mname'] ?? '');
-    // $lname = trim($_POST['lname'] ?? '');
-    // $year_level = trim($_POST['year_level'] ?? '');
-    // $section = trim($_POST['section'] ?? '');
-    // $department = trim($_POST['department'] ?? '');
-    // $email = trim($_POST['email'] ?? '');
+    $fname = trim($_POST['fname'] ?? '');
+    $mname = trim($_POST['mname'] ?? '');
+    $lname = trim($_POST['lname'] ?? '');
+    $year_level = trim($_POST['year_level'] ?? '');
+    $section = trim($_POST['section'] ?? '');
+    $department = trim($_POST['department'] ?? '');
+    $email = trim($_POST['email'] ?? '');
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';

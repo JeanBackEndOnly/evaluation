@@ -84,45 +84,50 @@ $query = "
     $stmt->execute();
     $professors = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $query = "SELECT * FROM users
-    INNER JOIN students ON users.id = students.user_id
-    INNER JOIN department ON students.department_id = department.id
-    WHERE users.id = :id;";
+
+    if (isset($_SESSION["user_id"])) {
+        $users_id = $_SESSION["user_id"];
+    } else {
+        die("User not logged in");
+    }
+
+    $query = "SELECT department_id FROM students WHERE user_id = :user_id";
     $stmt = $pdo->prepare($query);
-    $stmt->execute(['id' => $users_id]);
-    $getDepartment = $stmt->fetch(PDO::FETCH_ASSOC);
-    $department_name = $getDepartment["department_name"] ?? null;
+    $stmt->execute(['user_id' => $users_id]);
+    $departmentID = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    
+    $departmentIDs = $departmentID['department_id'];
 
-$query = "
-    SELECT 
-        p.id,
-        p.teacherID,
-        p.fname,
-        p.lname,
-        p.email,
-        p.profession,
-        d.department_name
-        FROM professor_school_year_semester psys
-        JOIN professor p ON psys.professor_id = p.id
-        LEFT JOIN department d ON p.department_id = d.id
-        INNER JOIN school_year_semester sy ON psys.school_year_semester_id = sy.id
-        WHERE psys.school_year_semester_id = :sysem_id
-        AND sy.status = 'open'
-        AND d.department_name = :department_name;
-";
+    $query = "SELECT id FROM professor WHERE department_id = :department_id";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":department_id", $departmentIDs);
+    $stmt->execute();
+    $resultProfID = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $profIDs = []; 
 
-$stmt = $pdo->prepare($query);
-$stmt->execute([
-    'sysem_id' => $users_id,
-    'department_name' => $department_name
-]);
-
-$professorInDept = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($resultProfID as $hehe) {
+        if (isset($hehe["id"])) {
+            $profIDs[] = $hehe["id"];
+            '<br>Found professor ID: ' . $hehe["id"] . '<br>';
+        }
+    }
 
 
+    $placeholders = implode(',', array_fill(0, count($profIDs), '?'));
 
+    $stmt = $pdo->prepare("
+        SELECT p.*
+        FROM professor p
+        INNER JOIN professor_school_year_semester ps ON p.id = ps.professor_id 
+        INNER JOIN department d ON p.department_id = d.id
+        WHERE ps.professor_id IN ($placeholders)
+        AND p.department_id = ?
+    ");
+
+    $params = array_merge($profIDs, [$departmentIDs]);
+    $stmt->execute($params);
+
+    $professorInDept = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
  $subjects = isset($_GET["subjects"]) ? $_GET["subjects"] : "";

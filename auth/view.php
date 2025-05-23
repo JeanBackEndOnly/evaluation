@@ -92,9 +92,9 @@ echo '<button type="submit" id="naniButton" class="btn btn-primary w-100">SIGN U
 echo '</div>';
 
 echo '</ul>';
-echo '</div>'; // Close CenterInfo
+echo '</div>'; 
 echo '</form>';
-echo '</div>'; // Close container
+echo '</div>';
 
 }
 

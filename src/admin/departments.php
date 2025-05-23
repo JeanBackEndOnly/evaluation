@@ -1,8 +1,8 @@
 <?php include_once '../../auth/control.php';
     $info = getUsersInfo();
     $admin_info = $info['admin_info'];
-    $defInfo = getDepartment();
-    $department = $defInfo['department'];
+    // $defInfo = getDepartment();
+    $department = $info['department'];
     ?>
 
 
