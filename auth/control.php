@@ -91,7 +91,9 @@ $query = "
     $stmt = $pdo->prepare($query);
     $stmt->execute(['id' => $users_id]);
     $getDepartment = $stmt->fetch(PDO::FETCH_ASSOC);
-    $department_name = $getDepartment["department_name"];
+    $department_name = $getDepartment["department_name"] ?? null;
+
+    
 
 $query = "
     SELECT 
@@ -278,15 +280,15 @@ if (!empty($subjects)) {
         'usersAccountID' => $usersAccountID
     ];
 }
-function getDepartment(){
-    $pdo = db_connect();
-    $query = "SELECT * FROM department;";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $department = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+// function getDepartment(){
+//     $pdo = db_connect();
+//     $query = "SELECT * FROM department;";
+//     $stmt = $pdo->prepare($query);
+//     $stmt->execute();
+//     $department = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
-    return [
-        'department' => $department
-    ];
-}
+//     return [
+//         'department' => $department
+//     ];
+// }
 
