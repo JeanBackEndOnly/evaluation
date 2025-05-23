@@ -13,15 +13,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty_inputs($username, $password)) {
         $errors["empty_inputs"] = "Fill all fields!";
         $_SESSION["errors_login"] = $errors;
-        header("Location: ../src/index.php");
+        header("Location: ../index.php");
         exit;
     }
 
     $conn = db_connect();
-    $pdo = $conn;
 
     try {
-        $result = get_username($pdo, $username); 
+        $pdo = $conn;
+
+        // Try to find admin first
+        $result = get_username_Admin($pdo, $username);
+        $role = null;
+
+        if ($result) {
+            $role = 'administrator';
+        } else {
+            // Try student if not admin
+            $result = get_username_Student($pdo, $username);
+            if ($result) {
+                $role = 'student';
+            }
+        }
+
         if (!$result) {
             $errors["login_incorrect"] = "Incorrect username!";
         } elseif (wrong_password($password, $result["password"])) {
@@ -34,22 +48,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
-        session_regenerate_id(true);
+        // Create unique session ID
+        $newSessionId = session_create_id();
+        $sessionId = $newSessionId . "_" . $result["id"];
+        session_id($sessionId);
 
         $_SESSION["user_id"] = $result["id"];
         $_SESSION["user_username"] = htmlspecialchars($result["username"]);
-        $_SESSION["roles"] = $result["role"]; // incorrect
+        $_SESSION["roles"] = $role;
         $_SESSION["last_regeneration"] = time();
 
-        if ($result["user_role"] === "student") {
+        if ($role === "student") {
             header("Location: ../src/student/dashboard.php");
-        } elseif ($result["user_role"] === "administrator") {
+        } elseif ($role === "administrator") {
             header("Location: ../src/admin/dashboard.php");
-        }
-        else {
-            $errors["login_incorrect"] = "Unknown role.";
-            $_SESSION["errors_login"] = $errors;
-            header("Location: ../src/index.php");
         }
 
         $pdo = null;
@@ -58,6 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Query Failed: " . $e->getMessage());
     }
 } else {
-    header("Location: ../index.php");
+    header("Location: ../src/index.php");
     exit;
 }

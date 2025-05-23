@@ -1,6 +1,6 @@
 <?php include '../auth/functions.php'; require_once '../installer/session.php';  require_once '../auth/view.php';  ?>
 <?php 
-// initInstaller();
+initInstaller();
 ?>
 
 <!DOCTYPE html>
